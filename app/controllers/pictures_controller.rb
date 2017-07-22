@@ -4,11 +4,21 @@ class PicturesController < ApplicationController
   end
 
   def create_row
+    
+    # the parameters: {"the_source"=> "hi, "the_caption" => "there"}
+    
+    p = Photo.new
+    p.source = params["the_source"]
+    p.caption = params["the_caption"]
+    p.save
+    
+    @photo_count = Photo.count
     render("pic_templates/create_row.html.erb")
   end
 
   def index
-    render("pic_templates/index.html.erb")
+     
+        render("pic_templates/index.html.erb")
   end
 
   def show
@@ -20,6 +30,12 @@ class PicturesController < ApplicationController
   end
 
   def edit_form
+
+    @photo_id = params["some_id"]
+    @p = Photo.find(params["some_id"])
+    @source = p.source
+    @caption = p.caption
+    
     render("pic_templates/edit_form.html.erb")
   end
 
